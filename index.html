@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Портфолио разработчика</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0F1012;
+    --bg2: #161719;
+    --bg3: #1e2022;
+    --accent: #10a9ff;
+    --accent2: #0d8bd6;
+    --text: #f0f3f5;
+    --muted: #9ca1a9;
+    --card-border: rgba(255,255,255,0.07);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 60px;
+    height: 64px;
+    background: rgba(15,16,18,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--card-border);
+  }
+  .nav-logo {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    color: var(--muted); font-size: 13px; font-weight: 500;
+    text-decoration: none; letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    background: var(--accent); color: #fff;
+    padding: 8px 20px; border-radius: 40px;
+    font-size: 13px; font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 120px 60px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute; border-radius: 50%; pointer-events: none;
+  }
+  .hero-glow-1 {
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(16,169,255,0.12) 0%, transparent 70%);
+    top: -200px; right: -100px;
+  }
+  .hero-glow-2 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(16,169,255,0.07) 0%, transparent 70%);
+    bottom: -100px; left: -100px;
+  }
+  .hero-content { max-width: 1100px; width: 100%; text-align: center; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(16,169,255,0.1); border: 1px solid rgba(16,169,255,0.25);
+    border-radius: 40px; padding: 6px 16px; margin-bottom: 32px;
+    font-size: 12px; color: var(--accent); font-weight: 500; letter-spacing: 0.5px;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--accent); border-radius: 50%;
+    animation: blink 2s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero h1 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700; line-height: 1.1;
+    margin-bottom: 24px; letter-spacing: -1px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub {
+    font-size: 18px; color: var(--muted); max-width: 600px; margin: 0 auto 48px;
+    line-height: 1.7;
+  }
+  .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    padding: 14px 32px; border-radius: 40px;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+    border: 1px solid var(--accent);
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    padding: 14px 32px; border-radius: 40px;
+    font-size: 15px; font-weight: 500; text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: border-color 0.2s, transform 0.1s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  /* STATS */
+  .stats {
+    display: flex; justify-content: center; gap: 80px;
+    padding: 64px 60px;
+    border-top: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 40px; font-weight: 700;
+    color: var(--accent); display: block; margin-bottom: 8px;
+  }
+  .stat-label { font-size: 14px; color: var(--muted); }
+
+  /* SECTION */
+  section { padding: 100px 60px; max-width: 1200px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 700; line-height: 1.15;
+    margin-bottom: 16px; letter-spacing: -0.5px;
+  }
+  .section-sub { font-size: 17px; color: var(--muted); max-width: 560px; line-height: 1.7; }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center; margin-top: 60px;
+  }
+  .about-photo-wrap {
+    position: relative;
+  }
+  .about-photo {
+    width: 100%; aspect-ratio: 4/5; object-fit: cover;
+    border-radius: 16px;
+    border: 1px solid var(--card-border);
+  }
+  .about-photo-placeholder {
+    width: 100%; aspect-ratio: 4/5;
+    background: var(--bg3);
+    border-radius: 16px;
+    border: 1px solid var(--card-border);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 12px;
+    color: var(--muted);
+  }
+  .about-photo-placeholder .icon-person {
+    width: 72px; height: 72px;
+    background: var(--bg2); border-radius: 50%;
+    border: 2px solid var(--card-border);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-photo-placeholder .icon-person svg { width: 36px; height: 36px; fill: var(--muted); }
+  .about-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 40px; }
+  .about-stat-card {
+    background: var(--bg2); border: 1px solid var(--card-border);
+    border-radius: 16px; padding: 24px;
+  }
+  .about-stat-card .num {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 32px; font-weight: 700; color: var(--text);
+    margin-bottom: 4px;
+  }
+  .about-stat-card .num span { color: var(--accent); }
+  .about-stat-card .label { font-size: 13px; color: var(--muted); line-height: 1.4; }
+
+  /* SKILLS */
+  #skills { background: var(--bg); }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px; margin-top: 60px;
+  }
+  .skill-card {
+    background: var(--bg2); border: 1px solid var(--card-border);
+    border-radius: 16px; padding: 28px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { border-color: rgba(16,169,255,0.3); transform: translateY(-4px); }
+  .skill-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: rgba(16,169,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .skill-icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
+  .skill-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+  .skill-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+  .skill-tag {
+    font-size: 11px; font-weight: 500; padding: 4px 10px;
+    border-radius: 20px;
+    background: rgba(16,169,255,0.08); color: var(--accent);
+    border: 1px solid rgba(16,169,255,0.18);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 24px; margin-top: 60px;
+  }
+  .project-card {
+    background: var(--bg2); border: 1px solid var(--card-border);
+    border-radius: 20px; overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+  .project-card:hover { border-color: rgba(16,169,255,0.35); transform: translateY(-6px); }
+  .project-preview {
+    height: 200px; width: 100%;
+    background: var(--bg3);
+    display: flex; align-items: center; justify-content: center;
+    border-bottom: 1px solid var(--card-border);
+    position: relative; overflow: hidden;
+  }
+  .project-preview-dots {
+    display: grid; grid-template-columns: repeat(5,1fr);
+    gap: 8px; padding: 20px; opacity: 0.4;
+  }
+  .project-preview-dots span {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent); display: block;
+  }
+  .project-label {
+    position: absolute; top: 12px; left: 12px;
+    font-size: 11px; font-weight: 600; letter-spacing: 1px;
+    padding: 4px 10px; border-radius: 20px;
+    background: rgba(16,169,255,0.15); color: var(--accent);
+    border: 1px solid rgba(16,169,255,0.25);
+    text-transform: uppercase;
+  }
+  .project-info { padding: 24px; }
+  .project-info h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+  .project-info p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+  .project-tech { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tech-badge {
+    font-size: 11px; padding: 3px 9px; border-radius: 20px;
+    background: var(--bg3); color: var(--muted);
+    border: 1px solid var(--card-border);
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--bg);
+    border-top: 1px solid var(--card-border);
+  }
+  .contact-card {
+    background: var(--bg2); border: 1px solid var(--card-border);
+    border-radius: 24px; padding: 60px; margin-top: 60px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .contact-card::before {
+    content: '';
+    position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(16,169,255,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .contact-card h2 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 36px; font-weight: 700; margin-bottom: 16px;
+  }
+  .contact-card p { font-size: 16px; color: var(--muted); margin-bottom: 40px; }
+  .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .contact-link {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--bg3); border: 1px solid var(--card-border);
+    padding: 12px 24px; border-radius: 40px;
+    color: var(--text); text-decoration: none;
+    font-size: 14px; font-weight: 500;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-link svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 32px 60px;
+    border-top: 1px solid var(--card-border);
+    font-size: 13px; color: var(--muted);
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    .stats { gap: 32px; padding: 48px 24px; flex-wrap: wrap; }
+    section { padding: 64px 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .contact-card { padding: 40px 24px; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">DEV<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">Обо мне</a></li>
+    <li><a href="#skills">Стек</a></li>
+    <li><a href="#projects">Проекты</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Связаться</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Открыт к новым проектам</div>
+    <h1>
+      Разрабатываю<br>
+      продукты, которые<br>
+      <span>работают</span>
+    </h1>
+    <p class="hero-sub">
+      Full-stack разработчик. Строю масштабируемые веб-приложения,
+      игровые серверы и многое другое.
+    </p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#projects">Смотреть проекты</a>
+      <a class="btn-outline" href="#contact">Написать мне</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <span class="stat-num">3+</span>
+    <span class="stat-label">Года опыта</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">20+</span>
+    <span class="stat-label">Проектов сделано</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">90%</span>
+    <span class="stat-label">Клиентов довольны</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">5</span>
+    <span class="stat-label">Технологических стеков</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <span class="section-tag">Обо мне</span>
+  <h2 class="section-title">Разработчик с фокусом<br>на результат</h2>
+  <p class="section-sub">Пишу чистый, поддерживаемый код. Работаю с frontend и backend, знаю как устроены реальные продукты.</p>
+  <div class="about-grid">
+    <div class="about-photo-wrap">
+      <div class="about-photo-placeholder">
+        <div class="icon-person">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+          </svg>
+        </div>
+        <span style="font-size:13px;">Добавь своё фото</span>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:'Unbounded',sans-serif;font-size:26px;font-weight:700;margin-bottom:20px;line-height:1.3;">
+        Привет, я <span style="color:var(--accent)">разработчик</span>
+      </h3>
+      <p style="color:var(--muted);line-height:1.8;margin-bottom:16px;">
+        Занимаюсь разработкой веб-приложений, игровых серверов и пользовательских интерфейсов.
+        Работаю в стеке JavaScript/TypeScript, знаю как строить как маленькие проекты, так и большие системы.
+      </p>
+      <p style="color:var(--muted);line-height:1.8;margin-bottom:32px;">
+        Сейчас развиваю собственный проект на RAGE:MP, строю marketplace-системы и занимаюсь full-stack разработкой.
+      </p>
+      <div class="about-stats-grid">
+        <div class="about-stat-card">
+          <div class="num">3<span>+</span></div>
+          <div class="label">Лет в разработке</div>
+        </div>
+        <div class="about-stat-card">
+          <div class="num">20<span>+</span></div>
+          <div class="label">Завершённых проектов</div>
+        </div>
+        <div class="about-stat-card">
+          <div class="num">5<span>+</span></div>
+          <div class="label">Технологических стеков</div>
+        </div>
+        <div class="about-stat-card">
+          <div class="num">∞</div>
+          <div class="label">Чашек кофе за код</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="max-width:1200px;margin:0 auto;padding:100px 60px;">
+  <span class="section-tag">Технологии</span>
+  <h2 class="section-title">Мой стек</h2>
+  <p class="section-sub">Использую современные инструменты для создания быстрых и надёжных приложений.</p>
+  <div class="skills-grid">
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      </div>
+      <h3>Frontend</h3>
+      <p>Строю современные пользовательские интерфейсы с упором на производительность и UX</p>
+      <div class="skill-tags">
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">Svelte</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">SASS/CSS</span>
+        <span class="skill-tag">Webpack</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24"><path d="M5 12H19M12 5l7 7-7 7"/></svg>
+      </div>
+      <h3>Backend</h3>
+      <p>Создаю серверную логику, REST API и работаю с базами данных</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">REST API</span>
+        <span class="skill-tag">Webpack</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </div>
+      <h3>Game Dev</h3>
+      <p>Разрабатываю игровые серверы и системы для мультиплеерных проектов</p>
+      <div class="skill-tags">
+        <span class="skill-tag">RAGE:MP</span>
+        <span class="skill-tag">GTA V</span>
+        <span class="skill-tag">CEF UI</span>
+        <span class="skill-tag">Game Logic</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      </div>
+      <h3>База данных</h3>
+      <p>Проектирую схемы БД, пишу оптимизированные запросы</p>
+      <div class="skill-tags">
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">Запросы</span>
+        <span class="skill-tag">Оптимизация</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+      </div>
+      <h3>Git & Инструменты</h3>
+      <p>Работаю с системами контроля версий, CI/CD и инструментами разработчика</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">VS Code</span>
+        <span class="skill-tag">npm</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <h3>UI/UX</h3>
+      <p>Понимаю дизайн-системы, работаю по макетам Figma и создаю приятные интерфейсы</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Figma</span>
+        <span class="skill-tag">Дизайн-системы</span>
+        <span class="skill-tag">Адаптив</span>
+        <span class="skill-tag">CSS анимации</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <span class="section-tag">Портфолио</span>
+  <h2 class="section-title">Мои проекты</h2>
+  <p class="section-sub">Некоторые из работ — от игровых серверов до веб-приложений.</p>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-preview" style="background:linear-gradient(135deg,#0d1117 0%,#1a1f2e 100%);">
+        <div style="text-align:center;z-index:1;">
+          <div style="font-family:'Unbounded',sans-serif;font-size:28px;font-weight:700;color:#10a9ff;letter-spacing:-1px;">NOMARD<span style="color:#fff">RP</span></div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:6px;letter-spacing:2px;">GTA ROLEPLAY SERVER</div>
+        </div>
+        <div class="project-label">Геймдев</div>
+      </div>
+      <div class="project-info">
+        <h3>NomardRP — GTA Roleplay</h3>
+        <p>Полноценный сервер GTA V Roleplay на фреймворке RAGE:MP. Система маркетплейса, телефон, банк, бизнес-логика — всё с нуля.</p>
+        <div class="project-tech">
+          <span class="tech-badge">RAGE:MP</span>
+          <span class="tech-badge">React</span>
+          <span class="tech-badge">Node.js</span>
+          <span class="tech-badge">MySQL</span>
+          <span class="tech-badge">JavaScript</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-preview" style="background:linear-gradient(135deg,#111 0%,#1a1a2e 100%);">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:32px;width:100%;">
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:14px;">
+            <div style="width:32px;height:4px;background:#10a9ff;border-radius:2px;margin-bottom:8px;"></div>
+            <div style="width:60%;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin-bottom:6px;"></div>
+            <div style="width:80%;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;"></div>
+          </div>
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:14px;">
+            <div style="width:32px;height:4px;background:#10a9ff;border-radius:2px;margin-bottom:8px;"></div>
+            <div style="width:70%;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin-bottom:6px;"></div>
+            <div style="width:50%;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;"></div>
+          </div>
+          <div style="background:rgba(16,169,255,0.1);border:1px solid rgba(16,169,255,0.2);border-radius:10px;padding:14px;grid-column:span 2;">
+            <div style="font-size:10px;color:#10a9ff;letter-spacing:1px;margin-bottom:6px;">МАРКЕТПЛЕЙС</div>
+            <div style="display:flex;gap:6px;">
+              <div style="flex:1;height:4px;background:rgba(16,169,255,0.4);border-radius:2px;"></div>
+              <div style="width:30%;height:4px;background:rgba(16,169,255,0.2);border-radius:2px;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="project-label">Web UI</div>
+      </div>
+      <div class="project-info">
+        <h3>Marketplace система</h3>
+        <p>Система маркетплейса для RP-сервера: листинг лотов, категории, создание объявлений, аукцион. Интегрирована с серверной логикой.</p>
+        <div class="project-tech">
+          <span class="tech-badge">React</span>
+          <span class="tech-badge">CSS</span>
+          <span class="tech-badge">EventManager</span>
+          <span class="tech-badge">MySQL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-preview" style="background:linear-gradient(135deg,#0a0a0a 0%,#1a1410 100%);">
+        <div style="text-align:center;">
+          <div style="width:80px;height:80px;margin:0 auto 12px;background:rgba(196,177,140,0.1);border:1px solid rgba(196,177,140,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#c4b18c" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M2 12h4M18 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <div style="font-size:13px;color:#c4b18c;font-weight:500;">GTA ROLEPLAY</div>
+        </div>
+        <div class="project-label">UI Design</div>
+      </div>
+      <div class="project-info">
+        <h3>Auth & NPC интерфейсы</h3>
+        <p>Дизайн и реализация экранов логина/регистрации, диалогов NPC и сайдбара в тёмной теме с золотой палитрой для RP-сервера.</p>
+        <div class="project-tech">
+          <span class="tech-badge">Svelte</span>
+          <span class="tech-badge">SASS</span>
+          <span class="tech-badge">CSS</span>
+          <span class="tech-badge">Figma</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-preview" style="background:linear-gradient(135deg,#0a0f1a 0%,#0d1a2e 100%);">
+        <div style="display:flex;flex-direction:column;gap:10px;padding:28px;width:100%;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:#10a9ff;"></div>
+            <div style="flex:1;height:3px;background:rgba(255,255,255,0.1);border-radius:2px;"></div>
+            <div style="font-size:10px;color:rgba(16,169,255,0.7);">active</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);"></div>
+            <div style="flex:1;height:3px;background:rgba(255,255,255,0.07);border-radius:2px;"></div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.3);">idle</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);"></div>
+            <div style="flex:1;height:3px;background:rgba(255,255,255,0.07);border-radius:2px;"></div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.3);">idle</div>
+          </div>
+        </div>
+        <div class="project-label">Backend</div>
+      </div>
+      <div class="project-info">
+        <h3>Серверные системы</h3>
+        <p>Бизнес-логика серверной стороны: дома, машины, бизнесы, работа с MySQL, управление игровыми данными через Container-систему.</p>
+        <div class="project-tech">
+          <span class="tech-badge">Node.js</span>
+          <span class="tech-badge">MySQL</span>
+          <span class="tech-badge">RAGE:MP</span>
+          <span class="tech-badge">JS</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="max-width:1200px;margin:0 auto;padding:100px 60px;">
+  <span class="section-tag">Контакты</span>
+  <h2 class="section-title">Есть проект?<br>Давай обсудим</h2>
+  <p class="section-sub">Открыт для фриланса, full-time и интересных коллабораций.</p>
+  <div class="contact-card">
+    <h2>Напиши мне</h2>
+    <p>Отвечаю быстро. Готов к обсуждению любых задач — от небольшого сайта до сложной системы.</p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:your@email.com">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email
+      </a>
+      <a class="contact-link" href="https://t.me/username" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M21.19 3L1 10.37l7.26 2.62L20 5.67 10.93 14.6l.12.05 2.76 7.35L21.19 3z"/></svg>
+        Telegram
+      </a>
+      <a class="contact-link" href="https://github.com/Moketsky" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 — Разработчик. Сделано с <span style="color:var(--accent)">♥</span> и большим количеством кофе.</p>
+</footer>
+
+</body>
+</html>
